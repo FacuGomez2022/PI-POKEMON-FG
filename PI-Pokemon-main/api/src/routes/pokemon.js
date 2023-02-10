@@ -1,0 +1,33 @@
+//RUTA POST RECIPES. Creación de post desde Recipes teniendo en cuenta la información que llega desde el Body.
+const { Router } = require("express");
+const { Pokemon, Species } = require("../db");
+
+const router = Router();
+
+router.post("/", async (req, res) => {
+  try {
+    let { name, species, hp, attack, defense, speed, height, weight } = req.body;
+    console.log(req.body);
+    console.log("Por acá pasé");
+    let pokemonsCreate = await Pokemon.create({
+      name,
+      hp,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
+    });
+    let speciesPokemonDb = await Species.findAll({
+      where: { name: species }
+    });
+    console.log(speciesPokemonDb[0]);
+    pokemonsCreate.addSpecies(speciesPokemonDb);
+    res.status(200).send(pokemonsCreate);
+  } catch (err) {
+    console.log(err);
+    res.status(404).send("Error al postear Pokemon");
+  }
+});
+
+module.exports = router;
