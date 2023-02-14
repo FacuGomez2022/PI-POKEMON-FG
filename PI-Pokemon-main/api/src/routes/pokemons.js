@@ -14,12 +14,11 @@ router.get("/", async (req, res) => {
   const name = req.query.name;
   let getPokemons = await getAllPokemons();
   if (name) {
-    let getPokemons2 = await getPokemons.filter((e) =>
-      e.name.toLowerCas().includes(name.toLowerCase())
-    );
-    getPokemons2.length
-      ? request.status(200).json(getPokemons2)
-      : res.status(404).send("Pokemon no encontrado");
+    console.log(name)
+    let getPokemons2 = getPokemons.find(e =>
+      e.name.toLowerCase() === name.toLowerCase());
+      getPokemons2 ? res.status(200).json(getPokemons2) : res.status(404).send("Pokemon not found")
+   // getPokemons2.length ? res.status(200).json(getPokemons2) : res.status(404).send("Pokemon no encontrado");
   } else {
     return res.status(200).json(getPokemons);
   }
@@ -49,8 +48,7 @@ router.get("/:id", async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error);
-    return res.status(404).send("Receta no encontrada");
+    return res.status(404).send("Pokemon no encontrado");
   }
 });
 module.exports = router;

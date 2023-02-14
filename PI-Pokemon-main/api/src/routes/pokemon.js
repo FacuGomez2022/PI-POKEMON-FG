@@ -7,8 +7,6 @@ const router = Router();
 router.post("/", async (req, res) => {
   try {
     let { name, species, hp, attack, defense, speed, height, weight } = req.body;
-    console.log(req.body);
-    console.log("Por acá pasé");
     let pokemonsCreate = await Pokemon.create({
       name,
       hp,
@@ -25,7 +23,6 @@ router.post("/", async (req, res) => {
     pokemonsCreate.addSpecies(speciesPokemonDb);
     res.status(200).send(pokemonsCreate);
   } catch (err) {
-    console.log(err);
     res.status(404).send("Error al postear Pokemon");
   }
 });
