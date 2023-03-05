@@ -1,35 +1,19 @@
 import React, {useState, useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getPokemonsDetails } from "../../actions/";
 import { useParams } from "react-router-dom";
 //import { connect } from "react-redux";
 
 export const Pokemon = () => {
+  const dispatch = useDispatch()
   const { id } = useParams();
-    console.log(id)
-  const [pokemon, setPokemon] = useState({});
 
+  const pokemon = useSelector((state) => state.pokemonDetail)
   useEffect(() => {
-   detail();
-  }, []);
-
-
-  const movieID = useParams().id
-  const movie = getPokemonsDetails(movieID)
-  console.log(movie)
-  console.log(movieID, 'este es el id')
-
-  const detail = async () => {
-    const data = await fetch(`http://localhost:3001/pokemons/${id}`);
-    const pokemon = await data.json();
+    dispatch(getPokemonsDetails(id))
     
-    setPokemon(pokemon);
-    //console.log(pokemon.name)
-  };
-  
-
-//   const prueba = async () => getPokemonsDetails(id);
-//   console.log(prueba);
-
+  },
+  [])
 
   return (
     <>
@@ -45,6 +29,7 @@ export const Pokemon = () => {
         </div></>
   )
 }
+
 // export class Pokemon extends React.Component {
 //     componentDidMount() {
 //         const pokemonId = this.props.match.params.id;

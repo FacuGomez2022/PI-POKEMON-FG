@@ -36,7 +36,6 @@ const getApi = async () => {
 
 router.get("/", async (req, res) => {
     let getSpecies = await getApi();
-    console.log(getSpecies)
 
 getSpecies ? res.status(200).json(getSpecies) : res.status(404).send("Specie not found")
     });

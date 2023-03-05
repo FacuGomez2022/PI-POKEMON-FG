@@ -4,7 +4,8 @@ const { Species, Pokemon } = require("../db.js");
 
 const getApi = async () => {
   try {
-  const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=40%22`)
+  const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=4000%22`)
+  // const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=40%22`)
 
   const apiInfo = await apiUrl.data.results.map(element => axios.get(element.url))
     const apiResponse = await axios.all(apiInfo).then (r => r.map(p => {
