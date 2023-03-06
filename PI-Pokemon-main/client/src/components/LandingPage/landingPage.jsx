@@ -7,6 +7,7 @@ export const LandingPage = () => {
     return (
         <>
         <div>
+            
             <Link to={`/home`}>Run to the action!</Link>
             
             <p>

@@ -5,6 +5,8 @@ import { getPokemons, getTypes, orderByName, orderByAttack, orderById } from "..
 import Card from "../Card/Card";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Paginado from "../Paginado/Paginado";
+
 
 export function Home() {
   const dispatch = useDispatch();
@@ -15,7 +17,19 @@ export function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value)
+    setPagActual(1)
   };
+
+  const [pagActual, setPagActual] = useState(1);
+  const [pokemonsPorPag, setPokemonsPorPag] = useState(12);
+
+  const ultimoPokemon = pagActual * pokemonsPorPag;
+  const primerPokemon = ultimoPokemon - pokemonsPorPag;
+  const pokemonsActuales = filtredPokemons.slice(primerPokemon, ultimoPokemon)
+
+  const paginado = (numeroPag) => 
+    setPagActual(numeroPag)
+  
 
 
   const [isChecked, setIsChecked] = useState(false);
@@ -25,18 +39,17 @@ export function Home() {
 
   useEffect(() => {
     
-    if (filtredPokemons.length === 0) {
+    if (filtredPokemons.length < 3) {
       dispatch(getPokemons())
       dispatch(getTypes())
      
     }
   }, []);
 
-
-
   const [selectedOption, setSelectedOption] = useState("");
     const handleSelectChange = (event) => {
       const newValue = event.target.value;
+      setPagActual(1)
       setSelectedOption(newValue);
       }  
   
@@ -57,21 +70,13 @@ export function Home() {
         else dispatch(orderByAttack(event.target.value))
         setAttackSet(event.target.value)
       };    
-      // function handleOrdenChange(event) {
-        
-      //   dispatch(orderByName(event.target.value)) 
-      //    console.log(event.target.value)
-      //    console.log(filtredPokemons, "FILTEREDPOKEMONS")
-      //   }
-        
-      // const [selectedOrder, setSelectedOrder] = useState("");
-      // const handleOrdenChange = (event) => {
-      //   setSelectedOrder(event.target.value)
-      // };    
+  
 
   return (
     <>
+ 
       <p>Welcome to my home page!</p>
+      <Link to = "/create">Create my Own Pokemon</Link>
       <p>My own creation's
       <input type="checkbox" onChange ={handleCheckBoxChange} checked={isChecked}/>
       </p>
@@ -90,7 +95,7 @@ export function Home() {
     <p>
     ALFABETICH ORDER 
     <select value={orderSet} onChange={handleOrdenChange} >
-    <option value="Default">Default</option>
+    {/* <option value="Default">Default</option> */}
             <option value="Ascendente">Ascendente</option>
             <option value="Descendente">Descendente</option>
         </select>
@@ -100,12 +105,16 @@ export function Home() {
     <p>
     ATTACK ORDER 
     <select value={attackSet} onChange={handleAttackChange} >
-    <option value="Default">Default</option>
+    {/* <option value="Default">Default</option> */}
             <option value="Ascendente">Ascendente</option>
             <option value="Descendente">Descendente</option>
         </select>
     </p>
     </div>
+
+
+
+
 
       <input type="text" onChange={handleInputChange} value={searchTerm} />
       { isChecked
@@ -114,7 +123,7 @@ export function Home() {
                 return (
                     <div>
                       <Card name={e.name} img={e.img} type={e.types} />
-                      <Link to={`/pokemons/` + e.id}>asdfasdf</Link>
+                      <Link to={`/pokemons/` + e.id}>{e.name.toUpperCase()}! I CHOOSE YOU</Link>
                     </div>
                   );
             }
@@ -122,9 +131,11 @@ export function Home() {
         filtredPokemons.map(e => {
             if (selectedOption.toLowerCase() === e.types){
           return (
+            
             <div>
-              <Card name={e.name} img={e.img} type={e.types} />
-              <Link to={`/pokemons/` + e.id}>asdfasdf</Link>
+                    
+                    <Card name={e.name} img={e.img} type={e.types} />
+              <Link to={`/pokemons/` + e.id}>{e.name.toUpperCase()}! I CHOOSE YOU</Link>
             </div>
           );
         }})  :
@@ -132,23 +143,32 @@ export function Home() {
             if (searchTerm.toLowerCase() === e.name.toLowerCase()){
           return (
             <div>
-              <Card name={e.name} img={e.img} type={e.types} />
-              <Link to={`/pokemons/` + e.id}>asdfasdf</Link>
+                   
+                   <Card name={e.name} img={e.img} type={e.types} />
+              <Link to={`/pokemons/` + e.id}>{e.name.toUpperCase()}! I CHOOSE YOU</Link>
             </div>
           );
         }}) :
-        filtredPokemons.map((e) => {
+        pokemonsActuales.map((e) => {
+          
             return (
+              
               <div>
+
                 <>{e.id}</>
                 <>{e.types}</>
                 <Card name={e.name} img={e.img} type={e.types} />
-                <Link to={`/pokemons/` + e.id}>asdfasdf</Link>
+                <Link to={`/pokemons/` + e.id}>{e.name.toUpperCase()}! I CHOOSE YOU</Link>
+                
               </div>
+              
             );
           })
-        
-        }
+    
+        }     
+         <div>
+                            <Paginado pokemonsPorPag={pokemonsPorPag} filtredPokemons = {filtredPokemons.length} paginado = {paginado} ></Paginado>
+          </div>
     </>
   );
 }

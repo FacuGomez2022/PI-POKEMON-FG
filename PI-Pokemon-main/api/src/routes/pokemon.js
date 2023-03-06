@@ -6,7 +6,7 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   try {
-    let { name, species, hp, attack, defense, speed, height, weight } = req.body;
+    let { name, types, hp, attack, defense, speed, height, weight } = req.body;
     let pokemonsCreate = await Pokemon.create({
       name,
       hp,
@@ -17,13 +17,12 @@ router.post("/", async (req, res) => {
       weight,
     });
     let speciesPokemonDb = await Species.findAll({
-      where: { name: species }
+      where: { name: types }
     });
-    console.log(speciesPokemonDb[0]);
     pokemonsCreate.addSpecies(speciesPokemonDb);
     res.status(200).send(pokemonsCreate);
   } catch (err) {
-    res.status(404).send("Error al postear Pokemon");
+    res.status(404).send(err);
   }
 });
 

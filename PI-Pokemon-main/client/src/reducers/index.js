@@ -27,10 +27,10 @@ const rootReducer = (state = initialState, action) => {
         }
         if (action.payload === "Ascendente"){
            orden = state.pokemons.sort(function (a, b) {
-                if (a.name > b.name) {
+                if (a.name.toLowerCase() > b.name.toLowerCase()) {
                   return 1;
                 }
-                if (b.name > a.name) {
+                if (b.name.toLowerCase() > a.name.toLowerCase()) {
                   return -1;
                 }
                 return 0;
@@ -57,7 +57,6 @@ const rootReducer = (state = initialState, action) => {
 
     
     if (action.type === ORDER_BY_ATTACK) {
-        console.log("por acá pase, reducer", action.payload)
         let orden = [];
         if (action.payload === "Default"){
   return {
@@ -94,12 +93,6 @@ const rootReducer = (state = initialState, action) => {
             pokemonsFiltered: orden
         }
     }
-    // if (action.type === ORDER_BY_ID) {
-    //     return {
-    //         ...state,
-    //         pokemonsFiltered: action.payload
-    //     }
-    // }
     if (action.type === ORDER_BY_ID) {
         if (action.payload === "Default") {
           return {
@@ -121,9 +114,11 @@ const rootReducer = (state = initialState, action) => {
         }
     }
     if (action.type === POST_POKEMON) {
+      console.log("por acá pase, reducer", action.payload)
     return {
         ...state, 
-        pokemons: state.pokemons.concat(action.payload),
+        pokemons: [...state.pokemons, action.payload],
+        pokemonsFiltered: [...state.pokemonsFiltered, action.payload]
     }
     }
     if (action.type === GET_POKEMONS) {

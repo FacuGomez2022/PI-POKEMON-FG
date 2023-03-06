@@ -41,8 +41,8 @@ router.get("/:id", async (req, res) => {
           attack: apiPokemons.data.stats[1].base_stat,
           defense:apiPokemons.data.stats[2].base_stat,
           speed:apiPokemons.data.stats[5].base_stat,
-          heigth: apiPokemons.data.heigth,
-          weigth:  apiPokemons.data.weight,
+          height: apiPokemons.data.height,
+          weight:  apiPokemons.data.weight,
         };
         return res.status(200).send(pokemon);
       }

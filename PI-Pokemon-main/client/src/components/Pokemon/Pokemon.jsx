@@ -2,7 +2,8 @@ import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonsDetails } from "../../actions/";
 import { useParams } from "react-router-dom";
-//import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 
 export const Pokemon = () => {
   const dispatch = useDispatch()
@@ -20,48 +21,20 @@ export const Pokemon = () => {
     <div>
     <p>${id}</p>
 //     <div className="pokemon-detail">
-//       <h3>{pokemon.name}</h3>
-//       <p>{pokemon.types}</p>
-//       <p>{pokemon.id}</p>
-//       <p>{pokemon.hp}</p>
+//       <h3>Name: {pokemon.name}</h3>
+//       <p>Type: {pokemon.types}</p>
+//       <p>ID: {pokemon.id}</p>
+//       <p>HP: {pokemon.hp}</p>
+//       <p>Attack: {pokemon.attack}</p>
+//       <p>Defense: {pokemon.defense}</p>  
+//       <p>Speed: {pokemon.speed}</p>
+//       <p>Height: {pokemon.height}</p>
+//       <p>Weight: {pokemon.weight}</p>
 //       <img src={pokemon.img} alt="Img not found" />
+        <Link to = "/create"><button>Create my Own Pokemon</button></Link>
+        <br></br>
+        <Link to="/home"><button>BACK TO HOME</button></Link>
 //     </div>
         </div></>
   )
 }
-
-// export class Pokemon extends React.Component {
-//     componentDidMount() {
-//         const pokemonId = this.props.match.params.id;
-//         console.log(this.props.match.params.id);
-//         getPokemonDetails(pokemonId)
-//         console.log(getPokemonDetails(pokemonId.json).payload)
-//         console.log()
-//     }
-
-//     render(){
-//   return (
-//     <>
-//     {/* <p>${pokemonId}</p>
-//     <div className="pokemon-detail">
-//       <h3>{pokemon.name}</h3>
-//       <p>{pokemon.types}</p>
-//       <p>{pokemon.id}</p>
-//       <p>{pokemon.hp}</p>
-//       <img src={pokemon.img} alt="Img not found" />
-//     </div> */}
-//     </>
-//   );
-// };
-// }
-// function mapStateToProps(state) {
-//     return {
-//         pokemon: state.pokemonDetail
-//     }
-// }
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         getPokemonDetails: id => dispatch(getPokemonDetails(id)),
-//     }
-// }
-// export default connect(mapStateToProps, mapDispatchToProps)(Pokemon)
