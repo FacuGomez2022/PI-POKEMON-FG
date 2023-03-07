@@ -13,7 +13,7 @@ export default function Paginado ({pokemonsPorPag,filtredPokemons, paginado}){
             <ul className='paginado'>
                 {numeroPag && numeroPag.map(numero =>( 
                     <li className='numero' key= {numero}>
-                        <a onClick={() => paginado(numero)}> {numero}</a>
+                        <button onClick={() => paginado(numero)}> {numero}</button>
                     </li>
                     )
                 )}

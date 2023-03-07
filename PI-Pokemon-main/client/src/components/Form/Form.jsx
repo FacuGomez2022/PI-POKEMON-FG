@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemons, postPokemon, getTypes } from "../../actions";
 import { useHistory, Link } from "react-router-dom";
+import "./Form.css";
+import Logo from "../Home/logo.jpg";
 
 
 
@@ -102,18 +104,20 @@ export const Form = () => {
       
   };
 
-  
-
   return (
-    <div >
+    <div>
+      <div className="logoImg"><img src={Logo} alt="logo.jgp" className="imgSet" /></div>
+    <div className="formPage">
+      
       <form action="POST"  onSubmit={submit}>
-        <div >
+        <div className="form-creation">
           <h1>Crea tu propio Pokemon</h1>
-          <p >
-            <label>Pokemon name</label>
+          <div className="prueba">
+          <p>
+            <label>Pokemon name:</label>
             <input
               type="text"
-              placeholder="pikachu.."
+              placeholder="Type your Pokemon name"
               name="name"
               value={data.name}
               onChange={handleInputChange}
@@ -122,7 +126,7 @@ export const Form = () => {
           </p>
           {errors.name ? <p className="danger">{errors.username}</p> : null}
           <p >
-            <label>Vida</label>
+            <label>Vida:</label>
             <input
               type="number"
               name="hp"
@@ -131,7 +135,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Fuerza</label>
+            <label>Fuerza:</label>
             <input
               type="number"
               name="attack"
@@ -140,7 +144,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Defensa</label>
+            <label>Defensa:</label>
             <input
               type="number"
               name="defense"
@@ -149,7 +153,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Velocidad</label>
+            <label>Velocidad:</label>
             <input
               type="number"
               name="speed"
@@ -158,7 +162,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Altura</label>
+            <label>Altura:</label>
             <input
               type="number"
               name="height"
@@ -167,7 +171,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Peso</label>
+            <label>Peso:</label>
             <input
               type="number"
               name="weight"
@@ -175,13 +179,14 @@ export const Form = () => {
               onChange={handleInputChange}
             />
           </p>
+          </div>
         </div>
 
         <div >
-          <h1>Tipos</h1>
-          <div >
+          <h1>Tipos:</h1>
+          <div className="tipos">
             {types.map((t) => (
-              <div key={t.slot}>
+              <div className="tipos" key={t.slot}>
                 <input
                   type="checkbox"
                   name={t.name}
@@ -193,11 +198,14 @@ export const Form = () => {
                 {t.slot % 4 === 0 ? <br /> : null}
               </div>
             ))}
-            <button type="submit" value="Crear">SUBMIT</button>
+            
           </div>
-          <Link to="/home"><button>BACK TO HOME</button></Link>
+          <button className="CreateButton" type="submit" value="Crear">SUBMIT</button>
+          <p></p>
+          <Link to="/home"><button className="CreateButton">BACK TO HOME</button></Link>
         </div>
       </form>
+    </div>
     </div>
   );
 };

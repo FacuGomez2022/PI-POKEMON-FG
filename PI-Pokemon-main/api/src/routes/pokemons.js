@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
       let apiPokemons = await getPokemonById(id);
       if (apiPokemons.data.id) {
         let pokemon = {
-          img: apiPokemons.data.sprites.front_default,
+          img: apiPokemons.data.sprites.other.dream_world.front_default,
           name: apiPokemons.data.forms[0].name,
           types: apiPokemons.data.types[0].type.name,
           id: apiPokemons.data.id,

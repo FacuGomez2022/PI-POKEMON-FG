@@ -6,7 +6,8 @@ import Card from "../Card/Card";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Paginado from "../Paginado/Paginado";
-
+import "./home.css";
+import Logo from "./logo.jpg";
 
 export function Home() {
   const dispatch = useDispatch();
@@ -74,57 +75,62 @@ export function Home() {
 
   return (
     <>
- 
-      <p>Welcome to my home page!</p>
-      <Link to = "/create">Create my Own Pokemon</Link>
-      <p>My own creation's
-      <input type="checkbox" onChange ={handleCheckBoxChange} checked={isChecked}/>
-      </p>
-<div>
-    <p>
-        TYPE FILTER
-        <select value={selectedOption} onChange={handleSelectChange}>
-            <option value="">Select a type</option>
+    <div className = "prueba" key="KeyTest">
+      <div className="logoImg"><img src={Logo} alt="logo.jgp" className="imgSet" /></div>
+      <div className="prueba3">
+        <div>
+      <input className="filterName" type="text" onChange={handleInputChange} value={searchTerm} placeholder="Search your Pokemon here!"/>
+      </div>
+      <div>
+      <Link to = "/create"><button className="CreateButton">Create my Own Pokemon</button></Link>
+      </div>
+      </div>
+
+<div className = "type">
+    <p className="filters">
+        Type Filter
+        <select className="filters" value={selectedOption} onChange={handleSelectChange}>
+            <option className="filters" value="">Select a type</option>
             {types.map((types)=> (
-                <option value={types.name}>{types.name}</option>))}
+                <option className="filters" value={types.name}>{types.name}</option>))}
         </select>
     </p>
-    </div>
+    
 
     <div>
-    <p>
-    ALFABETICH ORDER 
-    <select value={orderSet} onChange={handleOrdenChange} >
+    <p className="filters">
+    Alphabetical order
+    <select className="filters" value={orderSet} onChange={handleOrdenChange} >
     {/* <option value="Default">Default</option> */}
-            <option value="Ascendente">Ascendente</option>
-            <option value="Descendente">Descendente</option>
+            <option className="filters" value="Ascendente">Ascendente</option>
+            <option className="filters" value="Descendente">Descendente</option>
         </select>
     </p>
     </div>
     <div>
-    <p>
-    ATTACK ORDER 
-    <select value={attackSet} onChange={handleAttackChange} >
+    <p className="filters">
+    Attack Order
+    <select className="filters" value={attackSet} onChange={handleAttackChange} >
     {/* <option value="Default">Default</option> */}
-            <option value="Ascendente">Ascendente</option>
-            <option value="Descendente">Descendente</option>
+            <option className="filters" value="Ascendente">Ascendente</option>
+            <option className="filters" value="Descendente">Descendente</option>
         </select>
     </p>
     </div>
-
-
-
-
-
-      <input type="text" onChange={handleInputChange} value={searchTerm} />
+    </div>
+    <p className="creations">My own creation's   
+      <input className="creationCheckBox" type="checkbox" onChange ={handleCheckBoxChange} checked={isChecked}/>
+      </p>
+    <hr></hr>
       { isChecked
          ? filtredPokemons.map(e => {
             if (isNaN(e.id)){
                 return (
-                    <div>
-                      <Card name={e.name} img={e.img} type={e.types} />
-                      <Link to={`/pokemons/` + e.id}>{e.name.toUpperCase()}! I CHOOSE YOU</Link>
+                    <div className="CardDiv">
+                      <Card name={e.name} img={e.img} type={e.types} id={e.id}/>
+                    
                     </div>
+                    
                   );
             }
         }) : selectedOption ? 
@@ -132,20 +138,20 @@ export function Home() {
             if (selectedOption.toLowerCase() === e.types){
           return (
             
-            <div>
+            <div className="CardDiv">
                     
-                    <Card name={e.name} img={e.img} type={e.types} />
-              <Link to={`/pokemons/` + e.id}>{e.name.toUpperCase()}! I CHOOSE YOU</Link>
+                    <Card name={e.name} img={e.img} type={e.types} id={e.id} />
+              
             </div>
           );
         }})  :
         searchTerm ? filtredPokemons.map(e => {
             if (searchTerm.toLowerCase() === e.name.toLowerCase()){
           return (
-            <div>
+            <div className="CardDiv">
                    
-                   <Card name={e.name} img={e.img} type={e.types} />
-              <Link to={`/pokemons/` + e.id}>{e.name.toUpperCase()}! I CHOOSE YOU</Link>
+                   <Card name={e.name} img={e.img} type={e.types} id={e.id}/>
+             
             </div>
           );
         }}) :
@@ -153,12 +159,8 @@ export function Home() {
           
             return (
               
-              <div>
-
-                <>{e.id}</>
-                <>{e.types}</>
-                <Card name={e.name} img={e.img} type={e.types} />
-                <Link to={`/pokemons/` + e.id}>{e.name.toUpperCase()}! I CHOOSE YOU</Link>
+              <div className="CardDiv">
+                <Card name={e.name} img={e.img} type={e.types} id={e.id}/>
                 
               </div>
               
@@ -166,8 +168,9 @@ export function Home() {
           })
     
         }     
-         <div>
+         <div className="paginado">
                             <Paginado pokemonsPorPag={pokemonsPorPag} filtredPokemons = {filtredPokemons.length} paginado = {paginado} ></Paginado>
+          </div>
           </div>
     </>
   );

@@ -111,6 +111,7 @@ const rootReducer = (state = initialState, action) => {
         return {
             ...state,
             pokemonDetail: action.payload,
+            
         }
     }
     if (action.type === POST_POKEMON) {

@@ -10,7 +10,7 @@ const getApi = async () => {
   const apiInfo = await apiUrl.data.results.map(element => axios.get(element.url))
     const apiResponse = await axios.all(apiInfo).then (r => r.map(p => {
       const apiAll = {
-      img: p.data.sprites.front_default,
+      img: p.data.sprites.other.dream_world.front_default,
       name: p.data.forms[0].name,
       types: p.data.types[0].type.name,
       id: p.data.id,

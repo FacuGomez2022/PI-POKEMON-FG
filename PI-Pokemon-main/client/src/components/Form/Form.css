@@ -1,0 +1,56 @@
+.formPage {
+    font-family: "Franklin Gothic Medium", "Franklin Gothic Medium", sans-serif;
+    background-color: aqua;
+    justify-content: center;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: auto;
+    width: 120vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 1rem;
+    text-decoration: none;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: 0.5s;
+    background-color: rgb(239, 96, 96);
+    font-size: 30px;
+    font-family: "Franklin Gothic Medium", "Franklin Gothic Medium", sans-serif;
+}
+input {
+    border-radius: 50px;
+    display: grid;
+    position: relative;
+    justify-content: flex-start;
+
+    font-size: 20px;
+}
+label {
+    justify-content: flex-start;
+
+    font-size: 30px;
+}
+.prueba{
+    
+    justify-content: center;
+    display: inline-block;
+    text-align: left;
+}
+.form-creation{
+    align-items: center;
+    text-align: center;
+}
+.tipos{
+    border-radius: 50px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    margin-right: 10px;
+    justify-content: center;
+}
