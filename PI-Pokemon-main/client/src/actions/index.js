@@ -34,17 +34,13 @@ export const getTypes = () => async (dispatch) => {
 
 export function postPokemon(payload) {
     return async function (dispatch) {
-      console.log('acá estoy', dispatch, payload);
-
       const crear = await axios.post("http://localhost:3001/pokemon/", payload);
-      console.log(crear.data, 'SOY CREAR.DATA')
       return dispatch({
       type: POST_POKEMON,
       payload: crear.data 
     })
   }
 }
-
 
 export function orderByName (payload){
   return { type: ORDER_BY_NAME, payload: payload };

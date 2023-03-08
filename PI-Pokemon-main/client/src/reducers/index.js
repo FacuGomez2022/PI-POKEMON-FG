@@ -115,7 +115,6 @@ const rootReducer = (state = initialState, action) => {
         }
     }
     if (action.type === POST_POKEMON) {
-      console.log("por acá pase, reducer", action.payload)
     return {
         ...state, 
         pokemons: [...state.pokemons, action.payload],

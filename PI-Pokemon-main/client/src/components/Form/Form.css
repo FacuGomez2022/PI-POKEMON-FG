@@ -34,7 +34,6 @@ input {
 }
 label {
     justify-content: flex-start;
-
     font-size: 30px;
 }
 .prueba{
@@ -53,4 +52,9 @@ label {
     grid-template-columns: repeat(3,1fr);
     margin-right: 10px;
     justify-content: center;
+}
+.danger
+{
+    font-family: "Franklin Gothic Medium", "Franklin Gothic Medium", sans-serif;
+        text-transform: uppercase;
 }

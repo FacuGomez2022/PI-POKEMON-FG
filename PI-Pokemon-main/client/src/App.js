@@ -1,8 +1,5 @@
-import React, {useEffect} from "react"
+import React from "react"
 import './App.css';
-import { useDispatch } from "react-redux";
-import { getPokemons, getTypes } from "./actions";
-
 import {Pokemon} from "./components/Pokemon/Pokemon.jsx"
 import {Home} from "./components/Home/home"
 import { LandingPage } from "./components/LandingPage/landingPage";

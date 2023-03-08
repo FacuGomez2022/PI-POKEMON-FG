@@ -5,7 +5,7 @@ const { Species, Pokemon } = require("../db.js");
 const getApi = async () => {
   try {
   const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=4000%22`)
-  // const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=40%22`)
+  // const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=40%20`)
 
   const apiInfo = await apiUrl.data.results.map(element => axios.get(element.url))
     const apiResponse = await axios.all(apiInfo).then (r => r.map(p => {
@@ -25,12 +25,12 @@ const getApi = async () => {
     }))
     
     return apiResponse;
+
   }catch (error) {
     res.status(404)({error:error.message});
   }
  
 }
-
 
 const getDb = async () => {
   return await Pokemon.findAll({
@@ -54,7 +54,9 @@ const getDbById = async (id) => {
 
 const getPokemonById = async (id) => {
   return await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  
 };
+
 const getAllPokemons = async () => {
   const infoApi = await getApi();
   const infoDB = await getDb();

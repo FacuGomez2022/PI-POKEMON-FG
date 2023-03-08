@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonsDetails } from "../../actions/";
 import { useParams } from "react-router-dom";
@@ -14,6 +14,7 @@ export const Pokemon = () => {
   const pokemon = useSelector((state) => state.pokemonDetail);
   useEffect(() => {
     dispatch(getPokemonsDetails(id));
+    // eslint-disable-next-line
   }, []);
   if(!pokemon.img){
     pokemon.img = imgAlt
@@ -35,9 +36,7 @@ export const Pokemon = () => {
           <p>Defense: {pokemon.defense}</p>
           <p>Speed: {pokemon.speed}</p>
           <p>Height: {pokemon.height}</p>
-          <p>Weight: {pokemon.weight}</p>
-
-          
+          <p>Weight: {pokemon.weight}</p>          
         </div>
           <br></br>
           <Link to="/home">

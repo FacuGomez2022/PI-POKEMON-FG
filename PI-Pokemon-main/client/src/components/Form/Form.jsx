@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemons, postPokemon, getTypes } from "../../actions";
+import { postPokemon, getTypes } from "../../actions";
 import { useHistory, Link } from "react-router-dom";
 import "./Form.css";
 import Logo from "../Home/logo.jpg";
-
-
 
 export const Form = () => {
   const dispatch = useDispatch();
@@ -15,15 +13,12 @@ export const Form = () => {
     if (types.length === 0) {
       dispatch(getTypes())
      
-    }
+    }// eslint-disable-next-line
   }, []);
 
-   
   const submit = (e) => {
     e.preventDefault();
-    
     dispatch(postPokemon(data))
-
     setData({
       name: "",
       hp: 0,
@@ -34,9 +29,9 @@ export const Form = () => {
       weight: 0,
       types: [],
     });
-    console.log(data)
     history.push(`/home`)
   };
+
   const [data, setData] = useState({
     name: "",
     hp: 0,
@@ -51,20 +46,17 @@ export const Form = () => {
 
   const validate = (input) => {
     let errors = {};
-    if (!input.name) {
-      errors.name = "El name es obligatorio";
+    if (input.name === "") {
+      errors.name = "You must provide a name";
     }
-
     return errors;
   };
 
   const handleInputChange = (e) => {
-    if (e.target.name !== "name") {
       setData({
         ...data,
         [e.target.name]: Number(e.target.value) <= 0 ? 0 : e.target.value,
       });
-    } else {
       setErrors(
         validate({
           ...data,
@@ -76,10 +68,8 @@ export const Form = () => {
         [e.target.name]: e.target.value,
       });
     }
-  };
 
   const checkbox = (e) => {
-    
         const check = [];
         if (e.target.checked === true) {
           check.push(e.target.name);
@@ -99,19 +89,16 @@ export const Form = () => {
             ...data,
             types: borrarType,
           });
-        }
-        console.log(data); //!!!!!!!!!
-      
+        }      
   };
 
   return (
     <div>
       <div className="logoImg"><img src={Logo} alt="logo.jgp" className="imgSet" /></div>
-    <div className="formPage">
-      
+    <div className="formPage"> 
       <form action="POST"  onSubmit={submit}>
         <div className="form-creation">
-          <h1>Crea tu propio Pokemon</h1>
+          <h1>Set your own Pokemon</h1>
           <div className="prueba">
           <p>
             <label>Pokemon name:</label>
@@ -124,9 +111,9 @@ export const Form = () => {
               required
             />
           </p>
-          {errors.name ? <p className="danger">{errors.username}</p> : null}
+          {errors.name ? <p className="danger">{errors.name}</p> : null}
           <p >
-            <label>Vida:</label>
+            <label>HP:</label>
             <input
               type="number"
               name="hp"
@@ -135,7 +122,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Fuerza:</label>
+            <label>Attack:</label>
             <input
               type="number"
               name="attack"
@@ -144,7 +131,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Defensa:</label>
+            <label>Defense:</label>
             <input
               type="number"
               name="defense"
@@ -153,7 +140,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Velocidad:</label>
+            <label>Speed:</label>
             <input
               type="number"
               name="speed"
@@ -162,7 +149,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Altura:</label>
+            <label>Height:</label>
             <input
               type="number"
               name="height"
@@ -171,7 +158,7 @@ export const Form = () => {
             />
           </p>
           <p >
-            <label>Peso:</label>
+            <label>Weight:</label>
             <input
               type="number"
               name="weight"
@@ -181,9 +168,8 @@ export const Form = () => {
           </p>
           </div>
         </div>
-
         <div >
-          <h1>Tipos:</h1>
+          <h1>Types:</h1>
           <div className="tipos">
             {types.map((t) => (
               <div className="tipos" key={t.slot}>
@@ -198,9 +184,8 @@ export const Form = () => {
                 {t.slot % 4 === 0 ? <br /> : null}
               </div>
             ))}
-            
           </div>
-          <button className="CreateButton" type="submit" value="Crear">SUBMIT</button>
+          {!errors.name ? <button className="CreateButton" type="submit" value="Crear">SUBMIT</button> : null}
           <p></p>
           <Link to="/home"><button className="CreateButton">BACK TO HOME</button></Link>
         </div>
